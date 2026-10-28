@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn Tập Giữa HKI - Lịch Sử 12 - THPT Bà Điểm</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #16a34a;
+            --success-bg: #dcfce7;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .controls-bar {
+            max-width: 900px;
+            margin: 16px auto;
+            padding: 12px 16px;
+            background: var(--card);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #15803d;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: #eff6ff;
+        }
+
+        .mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .section-title {
+            margin: 28px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--primary);
+            color: #1e3a8a;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+        }
+
+        .question-card {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .question-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            color: #0f172a;
+        }
+
+        .question-num {
+            color: var(--primary);
+            font-weight: 700;
+            margin-right: 6px;
+        }
+
+        .orig-badge {
+            font-size: 0.75rem;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: normal;
+            margin-left: 6px;
+        }
+
+        .options-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .option-label:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+            accent-color: var(--primary);
+        }
+
+        .option-letter {
+            font-weight: 700;
+            margin-right: 8px;
+            min-width: 22px;
+        }
+
+        .option-label.correct-answer {
+            background-color: var(--success-bg) !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .option-label.wrong-answer {
+            background-color: var(--danger-bg) !important;
+            border-color: var(--danger) !important;
+            color: #991b1b;
+            text-decoration: line-through;
+        }
+
+        .passage-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 14px;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: #334155;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .passage-source {
+            display: block;
+            text-align: right;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .tf-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        .tf-table th, .tf-table td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .tf-table th {
+            background: #f1f5f9;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .tf-table td.tf-choice {
+            text-align: center;
+            width: 80px;
+        }
+
+        .tf-row.correct-row {
+            background-color: var(--success-bg);
+        }
+
+        .tf-row.wrong-row {
+            background-color: var(--danger-bg);
+        }
+
+        .result-banner {
+            display: none;
+            background: var(--card);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .score-big {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 8px 0;
+        }
+
+        @media (min-width: 640px) {
+            .options-list.two-cols {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Trường THPT Bà Điểm - Tổ Lịch Sử</h1>
+    <p>Nội Dung Ôn Tập Kiểm Tra Giữa HKI - Khối 12 (Năm học 2026 - 2027)</p>
+</header>
+
+<div class="controls-bar">
+    <div class="btn-group">
+        <button class="btn-primary" onclick="initQuiz()">🔀 Trộn đề mới</button>
+        <button class="btn-success" onclick="submitQuiz()">✅ Nộp bài & Chấm điểm</button>
+        <button class="btn-outline" onclick="resetCurrentQuiz()">🔄 Làm lại đề này</button>
+    </div>
+    <label class="mode-toggle">
+        <input type="checkbox" id="instantFeedback" onchange="toggleInstantMode()">
+        Chế độ xem đáp án ngay khi chọn
+    </label>
+</div>
+
+<div id="resultBanner" class="result-banner">
+    <h2>KẾT QUẢ BÀI LÀM</h2>
+    <div class="score-big" id="scoreDisplay">0 / 0</div>
+    <p id="scoreDetail"></p>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Phần I. Trắc nghiệm nhiều phương án lựa chọn (69 câu)</h2>
+    <div id="part1Container"></div>
+
+    <h2 class="section-title">Phần II. Trắc nghiệm Đúng - Sai (4 câu)</h2>
+    <div id="part2Container"></div>
+</div>
+
+<script>
+// Phần tử đầu tiên trong mảng 'a' luôn là ĐÁP ÁN ĐÚNG, hệ thống sẽ tự xáo trộn khi hiển thị
+const rawPart1 = [
+    { id: 1, q: "Tổ chức quốc tế được xem như tiền thân của Liên hợp quốc là", a: ["Hội Quốc liên.", "Đại hội đồng.", "khối Đồng minh.", "khối Hiệp ước."] },
+    { id: 2, q: "Đầu năm 1945, đâu là vấn đề cấp bách đặt ra cho các nước Đồng minh chống phát xít?", a: ["Tổ chức lại thế giới sau chiến tranh.", "Phân chia lại thuộc địa của các nước.", "Thiết lập trật tự thế giới mới hai cực.", "Phục hồi và phát triển kinh tế thế giới."] },
+    { id: 3, q: "Đâu là một trong những vai trò/mục tiêu của tổ chức Liên hợp quốc?", a: ["Duy trì hòa bình, an ninh thế giới.", "Cân bằng quyền lực các nước.", "Xoá bỏ chế độ thực dân kiểu cũ.", "Thực hiện quyền tự do hàng hải."] },
+    { id: 4, q: "Ngày 1/1/1942, đại diện của 26 nước đã ký văn kiện nào sau đây?", a: ["Tuyên bố về Liên hợp quốc.", "Thành lập khối Liên minh.", "Xoá bỏ hệ thống thuộc địa.", "Chấm dứt Chiến tranh lạnh."] },
+    { id: 5, q: "Sự kiện nào sau đây đã chính thức đánh dấu Liên hợp quốc được thành lập?", a: ["Ngày 24-10-1945, các nước thành viên phê chuẩn Hiến chương Liên hợp quốc.", "Tháng 2-1945, Hội nghị I-an-ta thống nhất thành lập Liên hợp quốc.", "Ngày 12-6-1945, các nước Đồng minh kí bản tuyên bố cùng hợp tác.", "Tháng 4-1945, đại diện 50 quốc gia thông qua Hiến chương Liên hợp quốc."] },
+    { id: 6, q: "Mục tiêu và nguyên tắc hoạt động của Liên hợp quốc được quy định bởi văn kiện quan trọng nào?", a: ["Hiến chương.", "Hiến pháp.", "Tuyên ngôn.", "Hiệp định."] },
+    { id: 7, q: "Cơ quan nào của Liên hợp quốc chịu trách nhiệm chính trong việc duy trì hoà bình và an ninh thế giới?", a: ["Hội đồng bảo an.", "Đại hội đồng.", "Ban thư ký.", "Tòa án quốc tế."] },
+    { id: 8, q: "Những quốc gia nào sau đây đóng vai trò quyết định, đồng thời là sáng lập viên của tổ chức Liên hợp quốc?", a: ["Liên Xô, Mỹ và Anh.", "Liên Xô, Mỹ và Đức.", "Mỹ, Anh và Đức.", "Liên Xô, Anh và Ba Lan."] },
+    { id: 9, q: "Nhận xét nào sau đây phản ánh không đúng về sự thành lập tổ chức Liên hợp quốc?", a: ["Quá trình thành lập lâu dài và chịu ảnh hưởng của chiến tranh lạnh.", "Phù hợp với khát vọng hòa bình chung của nhân dân thế giới.", "Quá trình hình thành trải qua nhiều hội nghị quốc tế khác nhau.", "Các cường quốc Đồng minh giữ vai trò chủ đạo trong việc thành lập."] },
+    { id: 10, q: "Đâu là một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến năm 2030 của Liên hợp quốc?", a: ["Chất lượng giáo dục.", "Chống nạn thất nghiệp.", "Quyền tự do chính trị.", "Chống bạo lực gia đình."] },
+    { id: 11, q: "Một trong những nguyên tắc hoạt động của Liên hợp quốc là", a: ["Bình đẳng về chủ quyền quốc gia.", "Hợp tác phát triển có hiệu quả về kinh tế, văn hóa, xã hội.", "Chung sống hòa bình, vừa hợp tác vừa đấu tranh.", "Tiến hành hợp tác quốc tế bằng biện pháp hòa bình."] },
+    { id: 12, q: "Trong quá trình hoạt động (từ năm 1945), Liên hợp quốc đã thực hiện được vai trò quan trọng nào sau đây?", a: ["Ngăn chặn không để xảy ra cuộc chiến tranh thế giới mới.", "Ngăn chặn được mọi cuộc chiến tranh ở các khu vực.", "Góp phần vào chấm dứt nạn khủng bố trên toàn cầu.", "Góp phần chấm dứt tình trạng đói nghèo ở châu Phi."] },
+    { id: 13, q: "Một trong những quốc gia Ủy viên thường trực Hội đồng bảo an Liên hợp quốc là", a: ["Anh.", "Nhật.", "Đức.", "Bỉ."] },
+    { id: 14, q: "Nội dung nào sau đây không phản ánh đúng bối cảnh lịch sử hình thành tổ chức Liên hợp quốc?", a: ["Chủ nghĩa phát xít xuất hiện và cầm quyền ở nhiều nước.", "Nhân dân thế giới có khát vọng được chung sống hòa bình.", "Ý thức của các nước Đồng minh về việc tổ chức thế giới.", "Nhu cầu thành lập tổ chức quốc tế mới thay thế tổ chức cũ."] },
+    { id: 15, q: "Hội nghị I-an-ta (2-1945) đã thông qua quyết định nào?", a: ["Phân chia phạm vi ảnh hưởng ở châu Âu, châu Á giữa các nước Đồng minh.", "Phân chia nước Đức thành bốn khu vực chiếm đóng của Đồng minh.", "Phân công quân đội Đồng minh giải giáp quân Nhật ở Đông Dương.", "Thành lập tổ chức Hội Quốc Liên để duy trì hòa bình, an ninh thế giới."] },
+    { id: 16, q: "Hội nghị I-an-ta (2/1945) diễn ra trong giai đoạn nào của Chiến tranh thế giới thứ hai?", a: ["Giai đoạn sắp kết thúc.", "Vừa mới kết thúc.", "Bùng nổ và lan rộng.", "Đang diễn ra ác liệt."] },
+    { id: 17, q: "Quyết định nào sau đây không phải là của Hội nghị I-an-ta (2/1945)?", a: ["Hình thành trật tự thế giới mới sau chiến tranh.", "Thành lập tổ chức quốc tế là Liên hợp quốc.", "Thống nhất tiêu diệt tận gốc chủ nghĩa phát xít.", "Phân chia phạm vi ảnh hưởng của Liên Xô, Mỹ."] },
+    { id: 18, q: "Mục tiêu chung được các cường quốc thỏa thuận trong hội nghị I-an-ta (2/1945) là", a: ["tiêu diệt tận gốc phát xít Đức và chủ nghĩa quân phiệt Nhật Bản.", "chấm dứt tình trạng nội chiến ở Trung Quốc, Áo và Phần Lan.", "thủ tiêu chủ nghĩa thực dân và chủ nghĩa phân biệt chủng tộc.", "xây dựng nước Đức trở thành quốc gia thống nhất và dân chủ."] },
+    { id: 19, q: "Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Liên Xô là", a: ["Đông Âu.", "Tây Âu.", "Nhật Bản.", "Triều Tiên."] },
+    { id: 20, q: "Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Mỹ là", a: ["Tây Âu.", "Đông Âu.", "Mông Cổ.", "Trung Đông."] },
+    { id: 21, q: "Quyết định nào sau đây của Hội nghị I-an-ta (2/1945) đưa đến sự phân chia hai cực trong quan hệ quốc tế sau Chiến tranh thế giới thứ hai?", a: ["Thoả thuận việc phân chia phạm vi ảnh hưởng ở châu Âu và châu Á.", "Tiêu diệt tận gốc chủ nghĩa phát xít Đức và chủ nghĩa quân phiệt Nhật.", "Liên Xô là quốc gia sẽ tham gia chống Nhật ở châu Á.", "Thành lập tổ chức Liên hợp quốc nhằm duy trì hoà bình an ninh thế giới."] },
+    { id: 22, q: "Trật tự thế giới mới được hình thành sau chiến tranh thế giới thứ hai (1945) là", a: ["I-an-ta.", "đơn cực.", "Vec-xai.", "đa cực."] },
+    { id: 23, q: "Quyết định nào sau đây của Hội nghị I-an-ta (2-1945) tạo nên những bất lợi cho cách mạng Việt Nam trong những năm 1945 - 1946?", a: ["Đông Nam Á vẫn thuộc phạm vi ảnh hưởng của các nước phương Tây.", "Quân Anh cùng với quân Pháp làm nhiệm vụ giải giáp quân đội Nhật.", "Quân Anh và quân Trung Hoa Dân quốc vào kiểm soát Đông Dương.", "Liên Xô có phạm vi ảnh hưởng và kiểm soát ở các nước Đông Dương."] },
+    { id: 24, q: "Nhận xét nào sau đây là tác động của Hội nghị I-an-ta và Hội nghị Pốt-xđam (1945) đối với tình hình quốc tế?", a: ["Làm thay đổi sâu sắc quan hệ quốc tế, đặc biệt là quan hệ Xô - Mỹ.", "Tạo nên một trật tự thế giới mới giữa các nước thắng trận và bại trận.", "Giải quyết được mâu thuẫn về vấn đề thị trường cho các cường quốc.", "Tạo nên khuôn khổ của trật tự thế giới - trật tự nhất siêu, nhiều cực."] },
+    { id: 25, q: "Những quốc gia nào sau đây tham dự hội nghị I-an-ta (2/1945)?", a: ["Liên Xô, Mỹ, Anh.", "Liên Xô, Mỹ, Pháp.", "Trung Quốc, Mỹ, Anh.", "Liên Xô, Pháp, Anh."] },
+    { id: 26, q: "Từ đầu những năm 70 của thế kỉ XX đến năm 1991, Liên Xô và Mỹ có hoạt động nào sau đây?", a: ["Tiến hành các cuộc gặp gỡ cấp cao.", "Đẩy mạnh cuộc chạy đua vũ trang.", "Tham dự hội nghị Ianta.", "Tiến hành Chiến tranh lạnh."] },
+    { id: 27, q: "Năm 1989, tại đảo Man-ta, Mỹ và Liên Xô đã có hành động nào sau đây?", a: ["Tuyên bố chấm dứt Chiến tranh lạnh.", "Tuyên bố chung về vũ khí chiến lược.", "Ký nhiều hiệp định thương mại tự do.", "Cam kết hòa bình giữa Mỹ và Liên Xô."] },
+    { id: 28, q: "Sự kiện nào sau đây đánh dấu trật tự hai cực I-an-ta chấm dứt?", a: ["Liên Xô chính thức tan rã (12/1991).", "Chiến tranh lạnh kết thúc (1989).", "Bức tường Béc-lin sụp đổ (1989).", "Khủng hoảng năng lượng (1973)."] },
+    { id: 29, q: "Sự kiện nào sau đây có ý nghĩa mở ra bước đột phá đầu tiên đối với trật tự thế giới hai cực I-an-ta?", a: ["Thắng lợi của cách mạng Trung Quốc (1949).", "Cách mạng tháng Tám ở Việt Nam (8/1945).", "Chế độ độc tài thân Mỹ thất bại ở Cuba (1959).", "Anh, Pháp rút quân khỏi kênh đào Xuy-ê (1956)."] },
+    { id: 30, q: "Nội dung tranh cãi gay gắt quyết liệt nhất trong hội nghị I-an-ta (2/1945) là", a: ["phân chia phạm vi ảnh hưởng sau chiến tranh.", "quốc gia nào sẽ tham chống Nhật ở châu Á.", "ranh giới phân chia để chiếm đóng Triều Tiên.", "số phận của các nước phát xít sau chiến tranh."] },
+    { id: 31, q: "Xu thế hoà hoãn Đông-Tây xuất hiện có tác động như thế nào đến trật tự hai cực I-an-ta?", a: ["Làm suy yếu trật tự hai cực.", "Đã xuất hiện xu thế đa cực.", "Các mâu thuẫn càng sâu sắc.", "Đã củng cố trật tự hai cực."] },
+    { id: 32, q: "Một trong những biểu hiện của xu thế hoà hoãn Đông - Tây là", a: ["các cuộc gặp gỡ cấp cao Xô - Mỹ.", "khủng hoảng năng lượng, dầu mỏ.", "Cách mạng Trung Quốc thắng lợi.", "sự vươn lên mạnh mẽ của Nhật Bản."] },
+    { id: 33, q: "Trật tự thế giới hai cực I-an-ta sụp đổ năm 1991, tác động như thế nào đến quan hệ quốc tế?", a: ["Tác động đến vấn đề dân tộc, bản sắc cộng đồng dân tộc, tôn giáo… đặc biệt châu Âu.", "Phạm vi ảnh hưởng của Mĩ và Liên Xô bị thu hẹp ở nhiều nơi trên thế giới.", "Quan hệ Liên Xô và Mĩ chuyển từ đối đầu sang đối thoại.", "So sánh lực lượng trên thế giới tạm thời có lợi cho tư bản."] },
+    { id: 34, q: "Xu thế chủ đạo trong quan hệ giữa các cường quốc sau Chiến tranh lạnh là", a: ["đối thoại, hợp tác trong quan hệ quốc tế.", "tôn trọng vai trò, nhiệm vụ của Liên hợp quốc.", "hợp tác, không cạnh tranh, không mâu thuẫn.", "hòa bình, không xung đột, tiến hành hợp tác."] },
+    { id: 35, q: "Sau Chiến tranh lạnh, nhân tố nào sau đây đóng vai trò quyết định sức mạnh tổng hợp của quốc gia?", a: ["Thực lực kinh tế và khoa học công nghệ.", "Sức mạnh chính trị- đối ngoại.", "Sức mạnh chính trị- quân sự.", "Sự phát triển văn hoá- giáo dục."] },
+    { id: 36, q: "“Lấy phát triển kinh tế làm trọng điểm” được xem là nội dung chiến lược chủ yếu của các nước trong thời kỳ", a: ["sau khi cuộc Chiến tranh lạnh kết thúc.", "Chiến tranh thế giới thứ hai kết thúc.", "chủ nghĩa xã hội thành hệ thống thế giới.", "ngay sau khi Chiến tranh lạnh bắt đầu."] },
+    { id: 37, q: "Xu thế Toàn cầu hóa là hệ quả của", a: ["cuộc cách mạng khoa học công nghệ.", "chiến tranh lạnh, trật tự hai cực I-an-ta.", "cách mạng công nghiệp thế kỷ XVII.", "cuộc khủng hoảng năng lượng (1973)."] },
+    { id: 38, q: "Một trong những biểu hiện của xu thế Toàn cầu hóa là", a: ["sự gia tăng của thương mại thế giới.", "mâu thuẫn giữa hai siêu cường Xô, Mỹ.", "xu thế hoà hoãn Đông, Tây thế kỷ XX.", "thế giới đã chia thành hai cực, hai phe."] },
+    { id: 39, q: "Trật tự thế giới mới theo xu thế đa cực được hình thành trong bối cảnh nào sau đây?", a: ["Trật tự thế giới I-an-ta bị sụp đổ.", "Chủ nghĩa xã hội ở Đông Âu và Liên Xô không ngừng mở rộng.", "Mỹ vươn lên trở thành trung tâm kinh tế- tài chính duy nhất của thế giới tư bản.", "Thế giới phân chia theo cục diện hai cực-hai phe đối đầu nhau."] },
+    { id: 40, q: "Một trong những biểu hiện của xu thế đa cực là", a: ["gia tăng sức mạnh, tầm ảnh hưởng của các nước lớn.", "các nước đẩy mạnh chạy đua vũ trang.", "xung đột sắc tộc diễn ra ở nhiều nơi.", "quan hệ quốc tế trở nên căng thẳng."] },
+    { id: 41, q: "Nhận xét nào là đúng về sự hình thành trật tự thế giới đa cực?", a: ["Là một tiến trình lịch sử khách quan.", "Gắn liền với các cuộc chiến tranh thế giới.", "Hình thành vào những năm 90 của thế kỉ XX.", "Mỹ và Liên Xô là 2 cực lớn nhất chi phối thế giới."] },
+    { id: 42, q: "Một trong những biểu tượng cho sự kết thúc Chiến tranh lạnh là", a: ["bức tường Béc-lin sụp đổ (11/1989).", "Liên Xô chính thức sụp đổ (1991).", "chiến tranh Việt Nam kết thúc (1975).", "vấn đề Nam Xu-đăng được giải quyết."] },
+    { id: 43, q: "Thắng lợi của phong trào giải phóng dân tộc trên thế giới và sự ra đời của hàng loạt các quốc gia độc lập đã", a: ["góp phần làm suy yếu trật tự thế giới hai cực I-an-ta.", "đánh dấu trật tự hai cực I-an-ta sụp đổ hoàn toàn.", "tăng cường phạm vi ảnh hưởng của Mĩ và Liên Xô.", "làm sụp đổ hoàn toàn chế độ xã hội chủ nghĩa ở Liên Xô."] },
+    { id: 44, q: "Hiệp hội các nước Đông Nam Á (ASEAN) ra đời trong hoàn cảnh nào sau đây?", a: ["Thế giới và khu vực đang có những chuyển biến quan trọng.", "Tất cả các nước khu vực Đông Nam Á đều giành được độc lập.", "Chiến tranh lạnh kết thúc, các dân tộc đang hòa hợp, hòa giải.", "Xu thế hòa hoãn Đông - Tây trở thành chủ đạo trên thế giới."] },
+    { id: 45, q: "Ngày 8 - 8 - 1967, tại Băng - Cốc (Thái Lan) đã diễn ra sự kiện nào sau đây?", a: ["Tuyên bố thành lập tổ chức ASEAN.", "Vấn đề Cam-pu-chia được giải quyết.", "Lễ kết nạp Việt Nam làm thành viên.", "Hiệp ước Ba-li đã được thông qua."] },
+    { id: 46, q: "Một trong những quốc gia tham gia sáng lập tổ chức ASEAN (1967) là", a: ["Xin-ga-po.", "Cam-pu-chia.", "Việt Nam.", "Bru-nây."] },
+    { id: 47, q: "Một trong những nội dung hợp tác chủ yếu của các nước ASEAN là", a: ["kinh tế.", "quân sự.", "đối ngoại.", "thể thao."] },
+    { id: 48, q: "Hiệp hội các quốc gia Đông Nam Á (ASEAN) được thành lập phản ánh xu thế nào sau đây?", a: ["Liên minh hợp tác khu vực.", "Lấy phát triển kinh tế làm trọng tâm.", "Toàn cầu hoá, quốc tế hóa.", "Trật tự đa cực nhiều trung tâm."] },
+    { id: 49, q: "Quá trình phát triển của Hiệp hội các quốc gia Đông Nam Á từ năm 1967 đến năm 2015 có đặc điểm nào sau đây?", a: ["Có sự phát triển từng bước về cơ cấu tổ chức, phạm vi và mức độ hợp tác.", "Xuất phát từ liên minh quân sự phát triển thành tổ chức liên kết kinh tế, chính trị.", "Trọng tâm của quá trình hợp tác có sự chuyển dịch từng bước từ nội khối sang ngoại khối.", "Quá trình hình thành, phát triển chịu sự chi phối thường xuyên của cuộc Chiến tranh lạnh."] },
+    { id: 50, q: "Quốc gia nào sau đây là thành viên của Cộng đồng ASEAN vào năm 2015?", a: ["Thái Lan.", "Cu-ba.", "Ma-rốc.", "Hàn Quốc."] },
+    { id: 51, q: "Các nước ASEAN đã kí kết văn kiện nào sau đây vào năm 2003?", a: ["Tuyên bố Ba-li II.", "Tuyên ngôn Quốc tế Nhân quyền.", "Hiến chương Liên hợp quốc.", "Hiến chương ASEAN."] },
+    { id: 52, q: "Ý tưởng xây dựng Cộng đồng ASEAN xuất hiện từ", a: ["ASEAN mới thành lập (1967).", "khi Chiến tranh lạnh kết thúc.", "khủng hoảng năng lượng (1973).", "khủng hoảng tài chính (1997)."] },
+    { id: 53, q: "Một trong những văn kiện được các nước ASEAN thông qua nhằm định hướng cho sự phát triển trong tương lai của tổ chức là", a: ["tầm nhìn ASEAN 2020 (1997).", "tuyên bố Băng-cốc (1967).", "hiến chương ASEAN (2007).", "hiệp ước Ba-li (1976)."] },
+    { id: 54, q: "Một trong những nội dung phản ánh nguyện vọng của các nước Đông Nam Á khi xây dựng Cộng đồng ASEAN là", a: ["liên kết, hợp tác toàn diện chặt chẽ về mọi mặt.", "một khu vực Đông Nam Á hữu nghị, hợp tác.", "thiết lập một liên minh quân sự Đông Nam Á.", "đoàn kết, hợp tác gạt bỏ ảnh hưởng của Pháp."] },
+    { id: 55, q: "Một trong những nội dung hợp tác của Cộng đồng ASEAN là", a: ["kinh tế.", "quân sự.", "đối ngoại.", "dân chủ."] },
+    { id: 56, q: "Mục tiêu xây dựng cộng đồng ASEAN là", a: ["đưa ASEAN trở thành một cộng đồng ràng buộc hơn.", "biến ASEAN thành tổ chức hợp tác mạnh nhất.", "các nước đoàn kết giúp đỡ nhau khi bị xâm lược.", "củng cố khối đoàn kết của ASEAN trên vấn đề quân sự."] },
+    { id: 57, q: "Đâu là cơ sở pháp lý để các nước Đông Nam Á xây dựng Cộng đồng ASEAN?", a: ["Hiến chương ASEAN.", "Tuyên bố Băng - cốc.", "Hiến chương Liên hợp quốc.", "hiệp ước Ba-li 1976."] },
+    { id: 58, q: "Một trong những văn kiện đã nêu rõ kế hoạch xây dựng Cộng đồng ASEAN là", a: ["lộ trình xây dựng cộng đồng ASEAN (2009-2015).", "kế hoạch tổng thể xây dựng cộng đồng ASEAN.", "tuyên bố chung Cua-la Lăm-pơ (tại Malaxia).", "hội nghị cấp cao ASEAN lần thứ 37 tại Hà Nội."] },
+    { id: 59, q: "Kế hoạch xây dựng Cộng đồng ASEAN được thông qua tại", a: ["hội nghị cấp cao ASEAN lần thứ 14 (2009).", "hội nghị cấp cao ASEAN lần thứ 37 (2020).", "hội nghị cấp cao ASEAN lần thứ 10 (2004).", "hội nghị cấp cao ASEAN lần thứ 11 (2005)."] },
+    { id: 60, q: "Ngày 22-11-2015, các nhà lãnh đạo ASEAN đã kí tuyên bố thành lập", a: ["Cộng đồng ASEAN.", "Diễn đàn khu vực ASEAN.", "Khu vực mậu dịch tự do ASEAN.", "Khu vực hòa bình trung lập ASEAN."] },
+    { id: 61, q: "Một trong những trụ cột của Cộng đồng ASEAN là", a: ["Cộng đồng Chính trị- an ninh ASEAN.", "Cộng đồng châu Âu.", "Cộng đồng năng lượng nguyên tử.", "Cộng đồng than – thép."] },
+    { id: 62, q: "Văn bản đầu tiên đưa ra ý tưởng xây dựng Cộng đồng ASEAN có nhận thức về các mối quan hệ lịch sử là", a: ["Tầm nhìn ASEAN 2020.", "Tầm nhìn ASEAN 2025.", "Hiến chương ASEAN.", "Hiệp ước Ba-li (1976)."] },
+    { id: 63, q: "Nhận định nào sau đây đúng khi đánh giá về triển vọng của Cộng đồng ASEAN?", a: ["trở thành một trong những khu vực phát triển năng động bậc nhất thế giới.", "quá trình nhất thể hóa của Cộng đồng ASEAN diễn ra trong tương lai gần.", "đã xây dựng cộng đồng Chính trị - An ninh để trở thành đối trọng với Mỹ.", "Trung Quốc đang tìm mọi cách chia rẽ Cộng đồng ASEAN liên kết với Mỹ."] },
+    { id: 64, q: "Nhằm nỗ lực tạo dựng môi trường khu vực kinh tế ổn định, có tính cạnh tranh cao là mục tiêu của", a: ["Cộng đồng Kinh tế ASEAN (AEC).", "Cộng đồng Chính trị- an ninh ASEAN.", "Cộng đồng Văn hoá- Xã hội ASEAN.", "Cộng đồng năng lượng nguyên tử."] },
+    { id: 65, q: "Nhằm nỗ lực hướng tới xây dựng một cộng đồng lấy con người làm trung tâm là mục tiêu của", a: ["Cộng đồng Văn hoá- Xã hội ASEAN.", "Cộng đồng Chính trị- an ninh ASEAN.", "Cộng đồng Kinh tế ASEAN (AEC).", "Cộng đồng năng lượng nguyên tử."] },
+    { id: 67, q: "Trong trụ cột xây dựng cộng đồng văn hóa - xã hội của ASEAN, yếu tố nào được coi là trung tâm?", a: ["Phát triển con người.", "Bình đẳng xã hội.", "Bảo vệ môi trường.", "Tạo dựng bản sắc."] },
+    { id: 68, q: "Một trong những mục tiêu của Cộng đồng kinh tế ASEAN là", a: ["xây dựng khu vực kinh tế có sức cạnh tranh cao.", "thu hút vốn đầu tư vào khu vực.", "tạo ra môi trường kinh tế hòa bình.", "đưa ASEAN trở thành trung tâm kinh tế."] },
+    { id: 69, q: "Ý nào sau đây là một trong những nội dung chính của Cộng đồng Kinh tế ASEAN (AEC)?", a: ["Tạo ra một thị trường và cơ sở sản xuất chung.", "Tạo dựng môi trường hòa bình – an ninh ở khu vực.", "Hạn chế ảnh hưởng của các cường quốc đối với khu vực.", "Hợp tác giữa các quốc gia để cùng phát triển."] },
+    { id: 70, q: "Ngày 22-11-2015 (trong đề ghi 20-11-2015), gắn liền với sự kiện nào dưới đây?", a: ["Chính thức thành lập Cộng đồng ASEAN.", "Hiến chương ASEAN được thông qua.", "Thông qua Tầm nhìn Cộng đồng ASEAN năm 2015.", "Vấn đề Campuchia được giải quyết."] }
+];
+
+const rawPart2 = [
+    {
+        id: 1,
+        passage: "Các nguyên tắc hoạt động của Liên hợp quốc bao gồm: Bình đẳng về chủ quyền quốc gia; Tôn trọng toàn vẹn lãnh thổ và độc lập chính trị quốc gia; Từ bỏ đe dọa bằng vũ lực hoặc sử dụng vũ lực trong quan hệ quốc tế; Không can thiệp vào công việc nội bộ các nước; Tôn trọng nghĩa vụ quốc tế và luật pháp quốc tế; Giải quyết các tranh chấp quốc tế bằng biện pháp hòa bình.",
+        source: "(Theo Điều 2, Hiến chương Liên hợp quốc năm 1945)",
+        items: [
+            { key: "a", text: "Hòa bình là ưu tiên hàng đầu trong giải quyết mâu thuẫn giữa các nước.", ans: true },
+            { key: "b", text: "Cho phép các nước lớn được can thiệp vào các nước nhỏ.", ans: false },
+            { key: "c", text: "Việc sử dụng vũ lực là cần thiết trong quan hệ quốc tế.", ans: false },
+            { key: "d", text: "Tất cả các nước thành viên của Liên hợp quốc phải tuân theo một thể chế nhà nước.", ans: false }
+        ]
+    },
+    {
+        id: 2,
+        passage: "[Năm 1960], “Đại hội đồng Liên hợp quốc đã thông qua bản Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân, trao trả độc lập cho các quốc gia và dân tộc thuộc địa. Đó là một sự kiện chính trị quan trọng. Như thế, tuyên ngôn đã khẳng định các nước thực dân đã vi phạm nguyên tắc quan trọng nhất của luật pháp quốc tế; khẳng định rõ ràng cơ sở pháp lí quốc tế của cuộc đấu tranh giành độc lập của các dân tộc bị áp bức”",
+        source: "(Nguyễn Quốc Hùng, Nguyễn Hồng Quân, Liên hợp quốc và Lực lượng gìn giữ hoà bình Liên hợp quốc, NXB Chính trị quốc gia, Hà Nội, 2008, tr.46)",
+        items: [
+            { key: "a", text: "Liên hợp quốc đã chính thức xoá bỏ hình thức phân biệt chủng tộc thông qua bản Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân (năm 1960).", ans: false },
+            { key: "b", text: "Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân (năm 1960) của Liên hợp quốc đã tạo cơ sở pháp lí cho các cuộc đấu tranh giành độc lập của nhân dân các nước Á, Phi, Mỹ La tinh.", ans: true },
+            { key: "c", text: "Tuyên ngôn về thủ tiêu hoàn toàn chủ nghĩa thực dân (năm 1960) thông qua các nguyên tắc hoạt động cơ bản của tổ chức Liên hợp quốc.", ans: false },
+            { key: "d", text: "Đoạn tư liệu đã thể hiện vai trò quan trọng nhất của tổ chức Liên hợp quốc là duy trì hoà bình, an ninh thế giới.", ans: false }
+        ]
+    },
+    {
+        id: 3,
+        passage: "“3. Tất cả các thành viên của Liên hợp quốc giải quyết các tranh chấp quốc tế của họ bằng biện pháp hoà bình, sao cho không tổn hại đến hoà bình, an ninh quốc tế và công lí;<br>4. Tất cả các quốc gia thành viên Liên hợp quốc từ bỏ đe doạ bằng vũ lực hoặc sử dụng vũ lực trong quan hệ quốc tế nhằm chống lại sự bất khả xâm phạm về lãnh thổ hay nền độc lập chính trị của bất kì quốc gia nào cũng như bằng cách khác trái với những mục đích của Liên hợp quốc”",
+        source: "(Trích: Điều 2, Hiến chương Liên hợp quốc)",
+        items: [
+            { key: "a", text: "Các thành viên Liên hợp quốc cam kết từ bỏ vũ lực.", ans: true },
+            { key: "b", text: "Các thành viên của Liên hợp quốc không đe doạ bằng vũ lực hoặc sử dụng vũ lực trong quan hệ quốc tế.", ans: true },
+            { key: "c", text: "Liên hợp quốc công nhận chủ quyền lãnh thổ và nền độc lập của bất kì quốc gia nào.", ans: true },
+            { key: "d", text: "Nguyên tắc của Liên hợp quốc là giải quyết các tranh chấp quốc tế bằng biện pháp hoà bình.", ans: true }
+        ]
+    },
+    {
+        id: 4,
+        passage: "“Tất cả các quốc gia thành viên Liên Hợp Quốc đều phải làm tròn những nghĩa vụ mà họ phải đảm nhận theo Hiến chương này để được bảo đảm hưởng toàn bộ các quyền và ưu đãi do tư cách thành viên mà có.<br>Tất cả các thành viên của Liên hợp quốc giải quyết các tranh chấp quốc tế của họ bằng biện pháp hòa bình, sao cho không tổn hại đến hòa bình, an ninh quốc tế và công lý.”",
+        source: "(Trích Điều 2, Hiến chương Liên Hợp quốc)",
+        items: [
+            { key: "a", text: "Đoạn tư liệu thể hiện mục tiêu hoạt động cơ bản của Liên hợp quốc là các quốc gia làm tròn nghĩa vụ đối với tổ chức này.", ans: false },
+            { key: "b", text: "Đoạn tư liệu cho thấy một trong những nguyên tắc hoạt động của Liên hợp quốc là các quốc gia thành viên thực hiện những nghĩa vụ đảm nhận theo Hiến chương Liên Hợp Quốc.", ans: true },
+            { key: "c", text: "Đoạn tư liệu là văn bản pháp lý giúp Liên Hợp Quốc ngăn chặn mọi xung đột giữa các thành viên từ khi tổ chức này thành lập.", ans: false },
+            { key: "d", text: "Mặc dù Liên Hợp Quốc có những nguyên tắc hoạt động chặt chẽ, nhưng hiện nay giữa một số quốc gia thành viên vẫn diễn ra chiến tranh, xung đột.", ans: true }
+        ]
+    }
+];
+
+let currentPart1 = [];
+let currentPart2 = [];
+
+function shuffleArray(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+}
+
+function initQuiz() {
+    document.getElementById('resultBanner').style.display = 'none';
+
+    currentPart1 = shuffleArray(rawPart1).map(item => {
+        const optionsWithFlag = item.a.map((optText, idx) => ({
+            text: optText,
+            isCorrect: idx === 0
+        }));
+        return {
+            origId: item.id,
+            q: item.q,
+            options: shuffleArray(optionsWithFlag)
+        };
+    });
+
+    currentPart2 = shuffleArray(rawPart2).map(item => {
+        return {
+            origId: item.id,
+            passage: item.passage,
+            source: item.source,
+            items: shuffleArray(item.items)
+        };
+    });
+
+    renderQuiz();
+}
+
+function renderQuiz() {
+    const p1Container = document.getElementById('part1Container');
+    const p2Container = document.getElementById('part2Container');
+    p1Container.innerHTML = '';
+    p2Container.innerHTML = '';
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    currentPart1.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.id = `p1-card-${index}`;
+
+        let optionsHTML = '';
+        item.options.forEach((opt, optIdx) => {
+            optionsHTML += `
+                <label class="option-label" id="p1-label-${index}-${optIdx}">
+                    <input type="radio" name="p1-q-${index}" value="${optIdx}" onchange="handleP1Select(${index}, ${optIdx})">
+                    <span class="option-letter">${letters[optIdx]}.</span>
+                    <span>${opt.text}</span>
+                </label>
+            `;
+        });
+
+        card.innerHTML = `
+            <div class="question-title">
+                <span class="question-num">Câu ${index + 1}:</span>
+                ${item.q}
+                <span class="orig-badge">Câu gốc #${item.origId}</span>
+            </div>
+            <div class="options-list two-cols">
+                ${optionsHTML}
+            </div>
+        `;
+        p1Container.appendChild(card);
+    });
+
+    const subLetters = ['a', 'b', 'c', 'd'];
+    currentPart2.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+
+        let rowsHTML = '';
+        item.items.forEach((sub, subIdx) => {
+            rowsHTML += `
+                <tr class="tf-row" id="p2-row-${index}-${subIdx}">
+                    <td><strong>${subLetters[subIdx]})</strong> ${sub.text}</td>
+                    <td class="tf-choice">
+                        <input type="radio" name="p2-q-${index}-${subIdx}" value="true" onchange="handleP2Select(${index}, ${subIdx}, true)">
+                    </td>
+                    <td class="tf-choice">
+                        <input type="radio" name="p2-q-${index}-${subIdx}" value="false" onchange="handleP2Select(${index}, ${subIdx}, false)">
+                    </td>
+                </tr>
+            `;
+        });
+
+        card.innerHTML = `
+            <div class="question-title">
+                <span class="question-num">Câu ${index + 1}:</span>
+                Đọc đoạn tư liệu sau đây và chọn Đúng hoặc Sai ở mỗi ý a, b, c, d:
+                <span class="orig-badge">Tư liệu gốc #${item.origId}</span>
+            </div>
+            <div class="passage-box">
+                ${item.passage}
+                <span class="passage-source">${item.source}</span>
+            </div>
+            <table class="tf-table">
+                <thead>
+                    <tr>
+                        <th>Mệnh đề</th>
+                        <th>Đúng</th>
+                        <th>Sai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rowsHTML}
+                </tbody>
+            </table>
+        `;
+        p2Container.appendChild(card);
+    });
+}
+
+function handleP1Select(qIdx, selectedOptIdx) {
+    const isInstant = document.getElementById('instantFeedback').checked;
+    if (!isInstant) return;
+
+    const item = currentPart1[qIdx];
+    item.options.forEach((opt, idx) => {
+        const label = document.getElementById(`p1-label-${qIdx}-${idx}`);
+        label.classList.remove('correct-answer', 'wrong-answer');
+        if (opt.isCorrect) {
+            label.classList.add('correct-answer');
+        } else if (idx === selectedOptIdx && !opt.isCorrect) {
+            label.classList.add('wrong-answer');
+        }
+    });
+}
+
+function handleP2Select(qIdx, subIdx, val) {
+    const isInstant = document.getElementById('instantFeedback').checked;
+    if (!isInstant) return;
+
+    const subItem = currentPart2[qIdx].items[subIdx];
+    const row = document.getElementById(`p2-row-${qIdx}-${subIdx}`);
+    row.classList.remove('correct-row', 'wrong-row');
+
+    if (val === subItem.ans) {
+        row.classList.add('correct-row');
+    } else {
+        row.classList.add('wrong-row');
+    }
+}
+
+function toggleInstantMode() {
+    const isInstant = document.getElementById('instantFeedback').checked;
+    if (!isInstant) {
+        document.querySelectorAll('.option-label').forEach(el => {
+            el.classList.remove('correct-answer', 'wrong-answer');
+        });
+        document.querySelectorAll('.tf-row').forEach(el => {
+            el.classList.remove('correct-row', 'wrong-row');
+        });
+    }
+}
+
+function resetCurrentQuiz() {
+    document.getElementById('resultBanner').style.display = 'none';
+    renderQuiz();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitQuiz() {
+    let p1Correct = 0;
+    const p1Total = currentPart1.length;
+
+    currentPart1.forEach((item, qIdx) => {
+        const selected = document.querySelector(`input[name="p1-q-${qIdx}"]:checked`);
+        const selectedIdx = selected ? parseInt(selected.value) : -1;
+
+        item.options.forEach((opt, optIdx) => {
+            const label = document.getElementById(`p1-label-${qIdx}-${optIdx}`);
+            label.classList.remove('correct-answer', 'wrong-answer');
+
+            if (opt.isCorrect) {
+                label.classList.add('correct-answer');
+            }
+            if (optIdx === selectedIdx && !opt.isCorrect) {
+                label.classList.add('wrong-answer');
+            }
+        });
+
+        if (selectedIdx !== -1 && item.options[selectedIdx].isCorrect) {
+            p1Correct++;
+        }
+    });
+
+    let p2Correct = 0;
+    let p2Total = 0;
+
+    currentPart2.forEach((item, qIdx) => {
+        item.items.forEach((sub, subIdx) => {
+            p2Total++;
+            const selected = document.querySelector(`input[name="p2-q-${qIdx}-${subIdx}"]:checked`);
+            const row = document.getElementById(`p2-row-${qIdx}-${subIdx}`);
+            row.classList.remove('correct-row', 'wrong-row');
+
+            if (selected) {
+                const userVal = selected.value === 'true';
+                if (userVal === sub.ans) {
+                    p2Correct++;
+                    row.classList.add('correct-row');
+                } else {
+                    row.classList.add('wrong-row');
+                }
+            } else {
+                row.classList.add('wrong-row');
+            }
+        });
+    });
+
+    const totalCorrect = p1Correct + p2Correct;
+    const totalQuestions = p1Total + p2Total;
+    const score10 = ((totalCorrect / totalQuestions) * 10).toFixed(2);
+
+    const banner = document.getElementById('resultBanner');
+    document.getElementById('scoreDisplay').textContent = `${score10} điểm (${totalCorrect}/${totalQuestions} ý đúng)`;
+    document.getElementById('scoreDetail').innerHTML = `
+        <strong>Phần I (Trắc nghiệm 4 lựa chọn):</strong> Đúng ${p1Correct} / ${p1Total} câu<br>
+        <strong>Phần II (Trắc nghiệm Đúng/Sai):</strong> Đúng ${p2Correct} / ${p2Total} lệnh hỏi
+    `;
+    banner.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.onload = initQuiz;
+</script>
+
+</body>
+</html>
